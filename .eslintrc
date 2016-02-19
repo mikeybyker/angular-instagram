@@ -1,0 +1,17 @@
+{
+  "extends": "eslint:recommended",
+  "plugins": ["angular"],
+  "env": {
+    "browser": true,
+    "jasmine": true
+  },
+  "rules": {
+        "angular/on-watch" : 0,
+        "no-unused-vars" : 0
+  },
+  "globals": {
+    "angular": true,
+    "module": true,
+    "inject": true
+  }
+}

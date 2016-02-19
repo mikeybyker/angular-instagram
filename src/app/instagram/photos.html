@@ -1,0 +1,12 @@
+<h1>{{vm.user}}: Your Recent Photos</h1>
+
+<div class="row">
+    <div class="col-sm-6 col-md-4" ng-repeat="photo in vm.photos">
+        <div class="thumbnail photo-thumbnail" ng-click="vm.openModal(photo)">
+            <img ng-src="{{photo.images.low_resolution.url}}" alt="">
+            <div class="caption">
+                <p>{{photo.caption.text || '&nbsp;'}}</p>
+            </div>
+        </div>
+    </div>
+</div>
