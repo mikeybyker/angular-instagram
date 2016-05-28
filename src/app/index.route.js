@@ -12,7 +12,10 @@
             url: '/',
             templateUrl: 'app/login/login.html',
             controller: 'LoginController',
-            controllerAs: 'vm'
+            controllerAs: 'vm',
+            resolve: {
+                skipIfAuthenticated: _skipIfAuthenticated
+            }
         })
         .state('about', {
             url: '/about',
@@ -31,6 +34,17 @@
         });
 
         $urlRouterProvider.otherwise('/');
+    }
+
+    function _skipIfAuthenticated($q, $state, auth, $log) {
+        var defer = $q.defer();
+        if(auth.isAuthenticated) {
+            $log.info('Already logged in...no need to try again :-)');
+            defer.reject();
+        } else {
+            defer.resolve();
+        }
+        return defer.promise;
     }
 
 }());

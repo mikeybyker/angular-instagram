@@ -64,7 +64,6 @@
             it('return home', function() {
                 $rootScope.$digest();
                 expect($state.go).toHaveBeenCalledWith('home');
-                // expect($state.go).toHaveBeenCalled();
                 expect($state.current.name).toBe('home');
             });
         });

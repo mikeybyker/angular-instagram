@@ -25,14 +25,14 @@
             }
         });
 
-        $rootScope.$on('$stateChangeStart',function(event,next)
-        {
-            if(next.url === '/' && auth.isAuthenticated)
-            {
-                event.preventDefault();
-                $log.info('Already logged in...no need to try again :-)');
-            }
-        });
+        // $rootScope.$on('$stateChangeStart',function(event,next)
+        // {
+        //     if(next.url === '/' && auth.isAuthenticated)
+        //     {
+        //         event.preventDefault();
+        //         $log.info('Already logged in...no need to try again :-)');
+        //     }
+        // });
 
         $log.debug('runBlock end');
     }

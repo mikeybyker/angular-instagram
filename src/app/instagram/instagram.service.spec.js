@@ -26,7 +26,7 @@
         describe('api methods exist', function() {
             it('should exist', function() {
                 expect(InstagramService.getRecent).not.toEqual(null);
-                expect(InstagramService.getTagged).not.toEqual(null);
+                expect(InstagramService.getRecent).toEqual(jasmine.any(Function));
             });
         });
 
