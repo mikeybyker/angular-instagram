@@ -11,4 +11,4 @@ before_script:
   - sleep 1 # give server time to start
 
 script:
-  - gulp
+  - gulp test
