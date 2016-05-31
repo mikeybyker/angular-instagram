@@ -12,6 +12,3 @@ before_script:
 
 after_script:
   - gulp
-
-script:
-  - node_modules/.bin/karma start karma.conf.js --no-auto-watch --single-run --reporters=dots --browsers=Firefox
