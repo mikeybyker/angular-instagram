@@ -28,7 +28,7 @@ gulp serve
   - Add allowed callbacks/CORS
   - Connections > Social > Turn on Instagram - add the Client ID and Client Secret from above
 
-##### Add your [auth0](https://auth0.com/) domain and clientID to **index.constants.RENAME.txt** and rename **index.constants.js**
+##### Add your [auth0](https://auth0.com/) domain and clientID to **index.constants.js**
 
 ### Version
 0.0.1
