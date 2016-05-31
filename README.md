@@ -1,5 +1,7 @@
 # Angular Instagram
 
+[![Build Status](https://travis-ci.org/mikeybyker/angular-instagram.svg?branch=master)](https://travis-ci.org/mikeybyker/angular-instagram)
+
 An angular app using auth0 to manage authentication with the Instagram api. Currently just displays recent images - can add any of the [Instagram Endpoints](https://www.instagram.com/developer/endpoints/) to instagram.service.js - once authenticated you can access any you like.
 
 
