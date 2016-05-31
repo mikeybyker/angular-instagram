@@ -33,6 +33,6 @@ gulp serve
 ##### Add your [auth0](https://auth0.com/) domain and clientID to **index.constants.js**
 
 ### Version
-0.0.1
+0.1.0
 
 Mike
