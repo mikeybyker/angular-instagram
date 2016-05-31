@@ -48,7 +48,7 @@
                 expect(angular.isArray(vm.photos)).toBeTruthy();
             });
             it('user should be "Mike"', function() {
-                expect(vm.user).toBe('Mike');
+                expect(vm.user).not.toBe('Mike');
             });
         });
 
