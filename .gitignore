@@ -4,6 +4,7 @@ coverage/
 .sass-cache/
 .idea/
 .tmp/
+removed/
 dist/
 keys.txt
 index.constants.js

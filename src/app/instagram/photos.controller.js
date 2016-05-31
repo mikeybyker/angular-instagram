@@ -15,20 +15,19 @@
         vm.openModal = openModal;
         vm.photos = [];
 
-        if(auth.isAuthenticated){
+        if(auth.isAuthenticated && store.get('access_token')){
+            vm.user = auth.profile && auth.profile.name;
             loadRecent();
         } else {
-            $state.go('home');
+            auth.signout();
+            store.remove('profile');
+            store.remove('token');
+            store.remove('access_token');
             return;
         }
 
-        vm.user = auth.profile.name;
 
         function loadRecent(){
-            var profile = store.get('profile');
-            if(!profile){
-                return;
-            }
             InstagramService
                 .getRecent({count:imageCount})
                 .then(function(response){

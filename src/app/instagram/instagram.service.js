@@ -46,7 +46,6 @@
             }
 
             return {
-
                 getRecent: function(options){
                     var url = 'https://api.instagram.com/v1/users/self/media/recent/';
                     return getData(url, options);

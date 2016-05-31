@@ -33,7 +33,6 @@
         describe('http calls', function() {
             it('should return data', function() {
                 store.set('access_token', '123');
-                // $httpBackend.when('GET', /https:\/\/api.instagram.com\/v1\/users\/self\/media\/recent\//)
                 $httpBackend.when('JSONP', /https:\/\/api.instagram.com\/v1\/users\/self\/media\/recent\//)
                     .respond({meta: {code:200},data:[1,2,3,4,5,6]});
                 var data;

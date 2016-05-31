@@ -4,6 +4,7 @@
         <img src="assets/images/instagram.png" alt="Instagram"><br>
     </p>
     <p>
-        <button type="button" class="btn btn-lg btn-success" ng-click="vm.login()">Login</button>
+        <button type="button" class="btn btn-lg btn-success" ng-click="vm.login()" ng-if="!vm.auth.isAuthenticated">Login</button>
+        <button type="button" class="btn btn-lg btn-info" ng-click="vm.viewPhotos()" ng-if="vm.auth.isAuthenticated">See Your Photos</button>
     </p>
 </div>

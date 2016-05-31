@@ -9,7 +9,9 @@
     function LoginController(auth, $state, store, InstagramService, $log) {
         var vm = this;
 
+        vm.auth = auth;
         vm.login = login;
+        vm.viewPhotos = viewPhotos;
 
         function login(){
             auth.signin({
@@ -23,6 +25,8 @@
             }, function(profile, idToken /*, accessToken, state, refreshToken*/) {
                 saveUserInfo(profile, idToken);
                 $state.go('photos');
+                // let the authProvider > loginSuccess do the rest...
+                // OR THIS? NOTE: TEST SPEC > CHANGE TO SUIT
             }, function(err) {
                 $log.log('Error :(', err);
             });
@@ -31,6 +35,12 @@
             store.set('profile', profile);
             store.set('token', token);
             store.set('access_token', profile.identities[0].access_token);
+        }
+
+        function viewPhotos(){
+            if(vm.auth.isAuthenticated){
+                $state.go('photos');
+            }
         }
     }
 }());
