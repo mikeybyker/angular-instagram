@@ -65,6 +65,8 @@ module.exports = function(config) {
 
     plugins : [
       'karma-phantomjs-launcher',
+      'karma-chrome-launcher',
+      'karma-firefox-launcher',
       'karma-angular-filesort',
       'karma-coverage',
       'karma-jasmine',

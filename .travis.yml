@@ -10,5 +10,5 @@ before_script:
   - bower install
   - sleep 1 # give server time to start
 
-after_script:
+script:
   - gulp
