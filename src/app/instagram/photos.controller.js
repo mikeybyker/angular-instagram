@@ -42,18 +42,20 @@
         }
 
         function openModal(photo){
-
+            if(!photo.images || !photo.images.standard_resolution){
+                return;
+            }
             Popeye.openModal({
                     template: '<img src="{{vm.img}}" alt="">',
                     controller: 'ModalController as vm',
                     resolve: {
                         img: function() {
-                        return photo.images.standard_resolution.url;
+                            return photo.images.standard_resolution.url;
                         }
                     }
                 })
                 .closed.then(function() {
-                    // $log.info('Model closed');
+                    $log.info('Model closed');
                 });
         }
 

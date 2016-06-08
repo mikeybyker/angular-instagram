@@ -72,12 +72,25 @@
         });
 
         describe('modal functionality', function(){
-            beforeEach(inject(function(_$controller_) {
-                vm = _$controller_('PhotosController');                
+            var Popeye;
+            beforeEach(inject(function(_$controller_, _Popeye_, _$q_) {
+                vm = _$controller_('PhotosController');
+                Popeye = _Popeye_;
+                var deferred = _$q_.defer();
+                deferred.resolve({});
+                spyOn(Popeye, 'openModal').and.returnValue({closed : deferred.promise});            
             }));
             it('openModal defined', function() {
                 expect(vm.openModal).toBeDefined();
                 expect(vm.openModal).toEqual(jasmine.any(Function));
+            });
+            it('Popeye.openModal called', function() {
+                vm.openModal({images:{standard_resolution:{url:'www.etc.com'}}});
+                expect(Popeye.openModal).toHaveBeenCalled();
+            });
+            it('Popeye.openModal not called when bad photo data', function() {
+                vm.openModal({images:null});
+                expect(Popeye.openModal).not.toHaveBeenCalled();
             });
         });
 
