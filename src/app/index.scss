@@ -40,6 +40,10 @@ $icon-font-path: "../../bower_components/bootstrap-sass/assets/fonts/bootstrap/"
         &.active
         {
             color: #fff;
+            &:focus
+            {
+                color: #fff;
+            }
         }
         &:focus
         {
