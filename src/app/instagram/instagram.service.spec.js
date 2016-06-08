@@ -38,7 +38,7 @@
                 var data;
 
                 InstagramService.getRecent({limit:6}).then(function(response) {
-                    data = response;//.data.data; // Instagram has array (data) inside object data.
+                    data = response; // Instagram has array (data) inside object data.
                 });
                 $httpBackend.flush();
                 expect(data).toEqual(jasmine.any(Array));
