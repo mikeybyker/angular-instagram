@@ -16,8 +16,8 @@
     "animate.css": "~3.4.0",
     "angular": "~1.4.9",
     "auth0-angular": "^4.1.0",
-    "a0-angular-storage": "^0.0.13",
-    "angular-jwt": "^0.0.9",
+    "a0-angular-storage": "^0.0.15",
+    "angular-jwt": "^0.1.0",
     "angular-popeye": "^1.0.5",
     "auth0.js": "^7.0.2",
     "auth0-lock": "^9.2.1"

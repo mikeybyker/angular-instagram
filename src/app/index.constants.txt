@@ -3,11 +3,11 @@
 
     angular
         .module('instagram')
-        // Stick your own auth0 config data here...
+        // Stick your own auth0 config data here...rename index.constants.js
         .constant('authconfig',
             {
-                domain: 'sinisterwaltz.eu.auth0.com',
-                clientID: 'pUbBjs4rFIcsMyLZGutLZ2Tz64H5qQO0',
+                domain: 'YOUR_AUTH0_DOMAIN',
+                clientID: 'YOUR_CLIENT_ID',
                 callbackUrl: location.href,
                 loginState: 'home'
             }
