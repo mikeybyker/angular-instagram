@@ -7,5 +7,5 @@ coverage/
 removed/
 dist/
 keys.txt
-src/app/index.constants-REAL.js
+src/app/index.constant-REAL.js
 cleaner.bat
