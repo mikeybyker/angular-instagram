@@ -6,7 +6,7 @@
         .controller('LoginController', LoginController);
 
     /** @ngInject */
-    function LoginController(auth, $state, store, InstagramService, $log) {
+    function LoginController(auth, $state, store, InstagramService, $log, $http) {
         var vm = this;
 
         vm.auth = auth;
@@ -23,6 +23,8 @@
               },
               connections: ['instagram']
             }, function(profile, idToken /*, accessToken, state, refreshToken*/) {
+                // $log.info('profile : ', profile);
+                // $log.info('idToken : ', idToken);
                 saveUserInfo(profile, idToken);
                 $state.go('photos');
                 // let the authProvider > loginSuccess do the rest...
@@ -36,8 +38,9 @@
             store.set('token', token);
             // @WARN : No more access_token. Serverless not possible with auth0, sadly.
             // https://auth0.com/docs/migrations
-            store.set('access_token', profile.identities[0].access_token);
+            // store.set('access_token', profile.identities[0].access_token);
         }
+
 
         function viewPhotos(){
             if(vm.auth.isAuthenticated){
