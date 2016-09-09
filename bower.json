@@ -1,6 +1,6 @@
 {
   "name": "sw-instagram",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "dependencies": {
     "angular-animate": "~1.4.9",
     "angular-cookies": "~1.4.9",
