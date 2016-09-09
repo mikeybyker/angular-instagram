@@ -30,9 +30,15 @@ gulp serve
   - Add allowed callbacks/CORS
   - Connections > Social > Turn on Instagram - add the Client ID and Client Secret from above
 
+### Setup Backend
+Since August 2016, auth0 sadly (but understandably - https://auth0.com/docs/migrations) stopped sending the IdP access token when you log in. Access to 3rd party APIs can no longer be achieved with a serverless setup.
+A backend proxy is needed to handle getting the access token from auth0 for use with (in this case) Instagram. I've used a [webtask](https://webtask.io/) to do this.
+@todo: webtask setup info...
+
+
 ##### Add your [auth0](https://auth0.com/) domain and clientID to **index.constants.js**
 
 ### Version
-0.2.0
+0.3.0
 
 Mike
