@@ -6,8 +6,8 @@
         // Stick your own auth0 config data here...
         .constant('authconfig',
             {
-                domain: 'sinisterwaltz.eu.auth0.com',
-                clientID: 'pUbBjs4rFIcsMyLZGutLZ2Tz64H5qQO0',
+                domain: 'YOUR_AUTH0_DOMAIN',
+                clientID: 'YOUR_CLIENT_ID',
                 callbackUrl: location.href,
                 loginState: 'home'
             }
@@ -16,7 +16,7 @@
         // A webtask will do it...see readme...else write your backend code to do the same
         .constant('webtask',
             {
-                api: 'https://webtask.it.auth0.com/api/run/wt-mikeybyker-gmail_com-0/ext_idp_webtask/call_ext_api?webtask_no_cache=1'
+                api: 'YOUR_WEBTASK_URL'
             }
         );
 

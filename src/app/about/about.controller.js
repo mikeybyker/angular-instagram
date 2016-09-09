@@ -5,7 +5,6 @@
         .module('instagram')
         .controller('AboutController', AboutController);
 
-    /** @ngInject */
     function AboutController(webDevTec) {
         var vm = this;
         vm.awesomeThings = [];

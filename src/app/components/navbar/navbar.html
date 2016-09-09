@@ -8,7 +8,7 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
             <ul class="nav navbar-nav">
-                <li ui-sref-active="active">
+                <li ui-sref-active="active" ng-if="!!$ctrl.auth.isAuthenticated">
                     <a href ui-sref="photos">Photos</a>
                 </li>
                 <li ui-sref-active="active">
@@ -16,9 +16,9 @@
                 </li>
             </ul>
 
-            <ul class="nav navbar-right navbar-nav" ng-if="!!vm.auth.isAuthenticated">
+            <ul class="nav navbar-right navbar-nav" ng-if="!!$ctrl.auth.isAuthenticated">
                 <li>
-                    <a ng-href="" ng-click="vm.logout()">Logout</a>
+                    <a ng-href ng-click="$ctrl.logout()">Logout</a>
                 </li>
             </ul>
         </div>

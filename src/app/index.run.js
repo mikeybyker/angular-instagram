@@ -17,8 +17,8 @@
                     if (!auth.isAuthenticated) {
                         auth.authenticate(store.get('profile'), token)
                             .then(function (profile) {
-                                $log.info('Authenticated with token');
-                                $log.info(profile);
+                                // $log.info('Authenticated with token');
+                                // $log.info(profile);
                                 // $state.go('photos'); // No need
                             }, function (err) { });
                     }
@@ -29,7 +29,6 @@
             }
         });
 
-        // $log.debug('runBlock end');
     }
 
 }());

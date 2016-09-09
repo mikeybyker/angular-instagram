@@ -9,5 +9,5 @@ dist/
 keys.txt
 index.constants-REAL.js
 cleaner.bat
-ext_idp_webtask.js
+my_ext_idp_webtask.js
 webtask.txt
