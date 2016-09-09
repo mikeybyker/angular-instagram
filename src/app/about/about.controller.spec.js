@@ -4,7 +4,6 @@
     describe('controllers AboutController', function(){
         var vm;
 
-
         beforeEach(module('instagram'));
         beforeEach(inject(function(_$controller_, _webDevTec_) {
             spyOn(_webDevTec_, 'getTec').and.returnValue([{}, {}, {}, {}, {}]);

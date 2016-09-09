@@ -6,34 +6,28 @@
         .controller('PhotosController', PhotosController)
         .controller('ModalController', ModalController);
 
-    /** @ngInject */
-    function PhotosController(auth, $state, store, InstagramService, $log, toastr, Popeye) {
+    function PhotosController(auth, $state, store, InstagramService, $log, toastr, Popeye, webtask) {
         var vm = this,
             imageCount = 6;
 
-        vm.loadRecent = loadRecent;
         vm.openModal = openModal;
         vm.photos = [];
 
-        if(auth.isAuthenticated && store.get('access_token')){
+        if(auth.isAuthenticated){
             vm.user = auth.profile && auth.profile.name;
             loadRecent();
         } else {
             auth.signout();
             store.remove('profile');
             store.remove('token');
-            store.remove('access_token');
             return;
         }
 
-
         function loadRecent(){
             InstagramService
-                .getRecent({count:imageCount})
+                .getRecent(webtask.api, {count:imageCount})
                 .then(function(response){
-                    $log.info('loadRecent > Response :::', response);
-                    // vm.photos = response.data.data;
-                    vm.photos = response; // when returning just the photos array - preferable
+                    vm.photos = response;
                 }, function(reason){
                     $log.info('Error :(', reason);
                     var message = angular.isObject(reason) ? reason.statusText : reason;
@@ -55,7 +49,7 @@
                     }
                 })
                 .closed.then(function() {
-                    $log.info('Model closed');
+                    // $log.info('Modal closed');
                 });
         }
 

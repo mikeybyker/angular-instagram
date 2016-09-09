@@ -11,6 +11,13 @@
                 callbackUrl: location.href,
                 loginState: 'home'
             }
+        )
+        // auth0 stopped (August 2016) sending the IdP access_token : need a backend proxy
+        // A webtask will do it...see readme...else write your backend code to do the same
+        .constant('webtask',
+            {
+                api: 'YOUR_WEBTASK_URL'
+            }
         );
 
 }());
