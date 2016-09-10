@@ -30,13 +30,35 @@ gulp serve
   - Add allowed callbacks/CORS
   - Connections > Social > Turn on Instagram - add the Client ID and Client Secret from above
 
-### Setup Backend
-Since August 2016, auth0 sadly (but understandably - https://auth0.com/docs/migrations) stopped sending the IdP access token when you log in. Access to 3rd party APIs can no longer be achieved with a serverless setup.
-A backend proxy is needed to handle getting the access token from auth0 for use with (in this case) Instagram. I've used a [webtask](https://webtask.io/) to do this.
-@todo: webtask setup info...
+### Obtaining the Identity Provider Access Token
+
+Since August 2016, Auth0 removed the  IdP access token has been removed from the user profile (for security reasons - see https://auth0.com/docs/migrations)
+
+This means a serverless setup is no longer possible - a separate backend is needed, which will use Auth0's token to request the IdP access token. Not quite as easy as it was before, but security and all...
+
+Auth0 [provide information on the required steps here](https://auth0.com/docs/what-to-do-once-the-user-is-logged-in/calling-an-external-idp-api) - which includes various example backend code.
+
+As an alternative, I've used a [webtask](https://webtask.io/) to do this.
+### TL;DR
+Setting up a webtask provides an url you can use as a proxy to make the Instagram calls.
+
+#### Quick Steps
+- [create a Non Interactive client](https://auth0.com/docs/what-to-do-once-the-user-is-logged-in/calling-an-external-idp-api)
+- [Install webtask](https://webtask.io/cli)
+- Create the webtask with [ext_idp_webtask.js](https://github.com/mikeybyker/angular-instagram/blob/master/ext_idp_webtask.js)*
+- Add the returned url to index.constants.js
+
+*From the console:
+```javascript
+    wt create ext_idp_webtask.js
+        -s CLIENT_ID=YOUR_NON_INTERACTIVE_AUTH0_CLIENT_ID
+        -s CLIENT_SECRET=YOUR_NON_INTERACTIVE_AUTHO_CLIENT_SECRET
+        -s ACCOUNT_NAME=YOUR_AUTH0_TENANT_NAME (e.g. yourdomain.eu)
+        -s ID_TOKEN_CLIENT_SECRET=YOUR_CLIENT_SECRET
+```
 
 
-##### Add your [auth0](https://auth0.com/) domain and clientID to **index.constants.js**
+##### Add your webtask, plus [Auth0](https://auth0.com/) domain and clientID to **index.constants.js**
 
 ### Version
 0.3.0
