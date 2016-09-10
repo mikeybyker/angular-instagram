@@ -34,27 +34,6 @@
      return res.status(200).json({data: result});
    });
  });
-
-
-  app.post('/test', function (req, res) {
-   if (!req.headers['authorization']){ return res.status(401).json({ error: 'unauthorized'}); }
-   const context = req.webtaskContext;
-   const token = req.headers['authorization'].split(' ')[1];
-   const reqBody = req.webtaskContext.body;
-   if (!reqBody) {
-     return res.status(400).json({error: 'api_url is required'});
-   }
-   async.waterfall([
-     async.apply(verifyJWT, context, reqBody, token),
-     getAccessToken,
-     getUserProfile,
-     callExtIDPApi
-   ], function (err, result) {
-     if (err) return res.status(400).json({error: err});
-     return res.status(200).json({data: result});
-   });
- });
-
 /*
 * Verify that the user id_token is signed by the correct Auth0 client
 */
