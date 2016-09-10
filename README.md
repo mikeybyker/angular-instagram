@@ -45,10 +45,10 @@ Setting up a webtask provides an url you can use as a proxy to make the Instagra
 #### Quick Steps
 - [create a Non Interactive client](https://auth0.com/docs/what-to-do-once-the-user-is-logged-in/calling-an-external-idp-api)
 - [Install webtask](https://webtask.io/cli)
-- Create the webtask with [ext_idp_webtask.js](https://github.com/mikeybyker/angular-instagram/blob/master/ext_idp_webtask.js)*
-- Add the returned url to index.constants.js
+- Create the webtask with [ext_idp_webtask.js](https://github.com/mikeybyker/angular-instagram/blob/master/ext_idp_webtask.js)*<sup>1</sup>
+- Add the returned url to index.constants.js*<sup>2</sup>
 
-*From the console:
+*<sup>1</sup> From the console:
 ```javascript
     wt create ext_idp_webtask.js
         -s CLIENT_ID=YOUR_NON_INTERACTIVE_AUTH0_CLIENT_ID
@@ -57,6 +57,18 @@ Setting up a webtask provides an url you can use as a proxy to make the Instagra
         -s ID_TOKEN_CLIENT_SECRET=YOUR_CLIENT_SECRET
 ```
 
+*<sup>2</sup>
+From the webtask url, remove: "?webtask_no_cache=1"
+and add "/call_ext_api"
+
+eg. webtask returns
+```javascript
+https://webtask.it.auth0.com/api/run/wt-you-gmail_com-0/ext_idp_webtask?webtask_no_cache=1
+```
+use
+```javascript
+https://webtask.it.auth0.com/api/run/wt-you-gmail_com-0/ext_idp_webtask/call_ext_api
+```
 
 ##### Add your webtask, plus [Auth0](https://auth0.com/) domain and clientID to **index.constants.js**
 

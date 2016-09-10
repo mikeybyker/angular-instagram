@@ -7,12 +7,23 @@
             $httpParamSerializer,
             store,
             auth,
+            url,
             $rootScope,
-            endPoint = 'https://webtask.it.auth0.com/api/run/wt-mikeybyker-gmail_com-0/ext_idp_webtask/call_ext_api';
+            profile = angular.fromJson('{"picture":"","name":"Mike","nickname":"mikeybyker","counts":{"media":100,"followed_by":100,"follows":100},"clientID":"XXX","updated_at":"2016-02-18T11:41:11.665Z","user_id":"instagram|12345678","identities":[{"access_token":"12345678.9123456.789123456789abc","provider":"instagram","user_id":"12345678","connection":"instagram","isSocial":true}],"created_at":"2016-02-15T16:49:05.573Z","global_client_id":"YYYYY"}'),
+            token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiTWlrZSBEb3JhbiIsImlzcyI6Imh0dHBzOi8vc2luaXN0ZXJ3YWx0ei5ldS5hdXRoMC5jb20vIiwic3ViIjoiaW5zdGFncmFtfDE0NDAwNzk3MjUiLCJhdWQiOiJwVWJCanM0ckZJY3NNeUxaR3V0TFoyVHo2NEg1cVFPMCIsImV4cCI6MTQ1NTgzMTY3MSwiaWF0IjoxNDU1Nzk1NjcxfQ.bwmkzz2ucU-pl63IsjEQDJgygak1VMloKLsrLGF9GvQ',
+            webtask = 'https://webtask.it.auth0.com/api/run/wt-mikeybyker-gmail_com-0/ext_idp_webtask/call_ext_api';
 
-            var profile = angular.fromJson('{"picture":"","name":"Mike","nickname":"mikeybyker","counts":{"media":100,"followed_by":100,"follows":100},"clientID":"XXX","updated_at":"2016-02-18T11:41:11.665Z","user_id":"instagram|12345678","identities":[{"access_token":"12345678.9123456.789123456789abc","provider":"instagram","user_id":"12345678","connection":"instagram","isSocial":true}],"created_at":"2016-02-15T16:49:05.573Z","global_client_id":"YYYYY"}');
-            var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiTWlrZSBEb3JhbiIsImlzcyI6Imh0dHBzOi8vc2luaXN0ZXJ3YWx0ei5ldS5hdXRoMC5jb20vIiwic3ViIjoiaW5zdGFncmFtfDE0NDAwNzk3MjUiLCJhdWQiOiJwVWJCanM0ckZJY3NNeUxaR3V0TFoyVHo2NEg1cVFPMCIsImV4cCI6MTQ1NTgzMTY3MSwiaWF0IjoxNDU1Nzk1NjcxfQ.bwmkzz2ucU-pl63IsjEQDJgygak1VMloKLsrLGF9GvQ';
-            var webtask = 'https://webtask.it.auth0.com/api/run/wt-mikeybyker-gmail_com-0/ext_idp_webtask/call_ext_api';
+
+        function createURL(settings, config){
+            config = config || {access_token$: 'WEBTASK_WILL_REPLACE_ME',
+                                webtask_no_cache: 1};
+            var params = angular.extend(
+                            {},                                 // So we don't pollute the objects
+                            config,                             // api_key and format
+                            settings || {}                      // method etc.
+                        );
+            return webtask + '?' + $httpParamSerializer(params);
+        }
 
         beforeEach(module('instagram'));
         beforeEach(inject(function(_InstagramService_, _$httpBackend_, _store_, _$rootScope_, _auth_, _$httpParamSerializer_) {
@@ -25,7 +36,7 @@
 
             auth = _auth_;
             store.set('profile', profile);
-            
+            url = createURL({ limit:6 });
 
 
         }));
@@ -47,8 +58,8 @@
             it('should return data', function() {
                 store.set('token', token);
                 var data;
-
-                $httpBackend.whenPOST(webtask)
+                
+                $httpBackend.whenPOST(url)
                     .respond({data:{meta: {code:200},data:[1,2,3,4,5,6]}});
                 InstagramService.getRecent(webtask, {limit:6}).then(function(response) {
                     data = response;

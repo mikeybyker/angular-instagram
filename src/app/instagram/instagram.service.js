@@ -55,27 +55,32 @@
             * This is because auth0 stopped (August 2016) sending the
             * IdP access_token needed to talk to Instagram
             */
-            function getData(proxy_url, api_url, options){
+            function getData(proxy_url, api_url, params, data){
                 var idToken = store.get('token'),
+                    headers = {'Authorization': 'Bearer ' + idToken},
                     // Any param ending in $ will have the $ removed,
                     // and value set to the correct idp_access_token
-                    params = {
-                            api_url: api_url,
+                    requestData = {api_url: api_url},
+                    requestParams = {
                             access_token$: 'WEBTASK_WILL_REPLACE_ME',
                             webtask_no_cache: 1
-                    },
-                    data = angular.extend(options || {}, params),
-                    headers = {'Authorization': 'Bearer ' + idToken};
+                    };
+
+                requestParams = angular.extend(requestParams, params || {});
+                requestData = angular.extend(requestData, data || {});                    
+
                 if(!idToken){
                     return $q.reject({status:500, statusText:'No id token...'});
                 } else if(!proxy_url || !api_url){
                     return $q.reject({status:500, statusText:'No api urls provided...'});
                 }
+
                 return  $http({
                             method: 'POST',
                             url: proxy_url,
                             headers: headers,
-                            data:data
+                            data: requestData, // message body needs the api_url
+                            params: requestParams // Instagram uses query string for options & access token
                         })
                         .then(function(response){
                             var data;
@@ -98,9 +103,9 @@
                     return getDataDirect(api_url, options);
                 },
                 // new - have to use server side code to grab the access token
-                getRecent: function(proxy_url, options){
+                getRecent: function(proxy_url, params, data){
                     var api_url = 'https://api.instagram.com/v1/users/self/media/recent/';
-                    return getData(proxy_url, api_url, options);
+                    return getData(proxy_url, api_url, params, data);
                 }
             };
         });
