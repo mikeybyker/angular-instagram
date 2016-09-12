@@ -3,22 +3,21 @@
 
     describe('component navbar', function() {
 
-    var el;
+        var el;
 
-    beforeEach(module('instagram'));
-    beforeEach(inject(function($compile, $rootScope) {
+        beforeEach(module('instagram'));
+        beforeEach(inject(function($compile, $rootScope) {
 
-        el = angular.element('<navbar></navbar>');
+            el = angular.element('<navbar></navbar>');
 
-        $compile(el)($rootScope.$new());
-        $rootScope.$digest();
+            $compile(el)($rootScope.$new());
+            $rootScope.$digest();
 
-    }));
+        }));
 
-    it('should be compiled', function() {
-        expect(el.html()).not.toEqual(null);
-    });
+        it('should be compiled', function() {
+            expect(el.html()).not.toEqual(null);
+        });
 
-
-});
+    })
 }());
