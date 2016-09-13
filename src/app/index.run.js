@@ -5,31 +5,32 @@
         .module('instagram')
         .run(runBlock);
 
-    /** @ngInject */
     function runBlock($log, $rootScope, auth, store, jwtHelper, $state) {
 
         auth.hookEvents();
-
         $rootScope.$on('$locationChangeStart', function() {
+            console.log('$locationChangeStart');
             var token = store.get('token');
+            // console.log('token : ', token);
             if (token) {
+                                    
                 if (!jwtHelper.isTokenExpired(token)) {
                     if (!auth.isAuthenticated) {
+
                         auth.authenticate(store.get('profile'), token)
                             .then(function (profile) {
                                 $log.info('Authenticated with token');
-                                $log.info(profile);
+                                // $log.info(profile);
                                 // $state.go('photos'); // No need
-                            }, function (err) { });
+                            }, function (err) { $log.info('error : ', err);});
                     }
                 } else {
                     // Either show the login page or use the refresh token to get a new idToken
                     $state.go('home');
                 }
             }
-        });
+        });        
 
-        // $log.debug('runBlock end');
     }
 
 }());

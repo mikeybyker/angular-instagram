@@ -7,5 +7,7 @@ coverage/
 removed/
 dist/
 keys.txt
-src/app/index.constant-REAL.js
+index.constants-REAL.js
 cleaner.bat
+my_ext_idp_webtask.js
+webtask.txt

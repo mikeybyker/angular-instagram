@@ -21,7 +21,7 @@ function listFiles() {
       path.join(conf.paths.src, '/app/**/*.module.js'),
       path.join(conf.paths.src, '/app/**/*.js'),
       path.join(conf.paths.src, '/**/*.spec.js'),
-      path.join(conf.paths.src, '/**/*.mock.js'),
+      // path.join(conf.paths.src, '/**/*.mock.js'),
     ])
     .concat(pathSrcHtml);
 
@@ -36,6 +36,8 @@ function listFiles() {
     served: true,
     watched: false
   });
+  // Polyfill Phantom (else update to phantom 2 - which I recall is fucked)
+  files.push('./node_modules/phantomjs-polyfill/bind-polyfill.js');
   return files;
 }
 
@@ -70,7 +72,8 @@ module.exports = function(config) {
       'karma-angular-filesort',
       'karma-coverage',
       'karma-jasmine',
-      'karma-ng-html2js-preprocessor'
+      'karma-ng-html2js-preprocessor',
+      'karma-spec-reporter'
     ],
 
     coverageReporter: {
