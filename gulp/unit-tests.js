@@ -26,7 +26,7 @@ function runTests (singleRun, done) {
     pathSrcJs.forEach(function(path) {
       preprocessors[path] = ['coverage'];
     });
-    reporters.push('coverage')
+    reporters.push('spec')
   }
 
   var localConfig = {

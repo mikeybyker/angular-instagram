@@ -1,6 +1,6 @@
 {
   "name": "sw-instagram",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "dependencies": {},
   "scripts": {
     "test": "gulp test"
@@ -44,6 +44,7 @@
     "karma-jasmine": "~0.3.6",
     "karma-ng-html2js-preprocessor": "~0.2.0",
     "karma-phantomjs-launcher": "1.0.2",
+    "karma-spec-reporter": "0.0.26",
     "lodash": "~3.10.1",
     "main-bower-files": "~2.9.0",
     "uglify-save-license": "~0.4.1",

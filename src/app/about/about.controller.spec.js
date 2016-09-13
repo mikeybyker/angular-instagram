@@ -5,9 +5,10 @@
         var vm;
 
         beforeEach(module('instagram'));
-        beforeEach(inject(function(_$controller_, _webDevTec_) {
+        beforeEach(inject(function(_$controller_, _webDevTec_, _$rootScope_) {
             spyOn(_webDevTec_, 'getTec').and.returnValue([{}, {}, {}, {}, {}]);
-            vm = _$controller_('AboutController');
+            var scope = _$rootScope_.$new();
+            vm = _$controller_('AboutController', {$scope: scope});
         }));
 
         it('should define more than 5 awesome things', function() {

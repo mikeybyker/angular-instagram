@@ -73,6 +73,6 @@ https://webtask.it.auth0.com/api/run/wt-you-gmail_com-0/ext_idp_webtask/call_ext
 ##### Add your webtask, plus [Auth0](https://auth0.com/) domain and clientID to **index.constants.js**
 
 ### Version
-0.3.0
+0.4.0
 
 Mike
