@@ -37,7 +37,7 @@ function listFiles() {
     watched: false
   });
   // Polyfill Phantom (else update to phantom 2 - which I recall is fucked)
-  files.push('./node_modules/phantomjs-polyfill/bind-polyfill.js');
+  // files.push('./node_modules/phantomjs-polyfill/bind-polyfill.js');
   return files;
 }
 

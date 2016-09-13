@@ -7,16 +7,29 @@
             token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2p3dC1pZHAuZXhhbXBsZS5jb20iLCJzdWIiOiJtYWlsdG86bWlrZUBleGFtcGxlLmNvbSIsIm5iZiI6MTQ3Mzc1MzE2NCwiZXhwIjoxODUyNDQ0MTY4LCJpYXQiOjE0NzM3NTMxNjQsImp0aSI6ImlkMTIzNDU2IiwidHlwIjoiaHR0cHM6Ly9leGFtcGxlLmNvbS9yZWdpc3RlciJ9.VRnLwZoG7SwTLEMUG0_TBwsSaPR6fdcf_JUuFH6d5OY',
             webtask = 'https://webtask.it.auth0.com/api/run/wt-someone-gmail_com-0/ext_idp_webtask/call_ext_api';
 
-
-
-
         beforeEach(module('instagram'));
 
-        // afterEach(function() {
-        //     $httpBackend.resetExpectations();
-        // });
+        beforeEach(inject(function(_$rootScope_, _authUtils_) {
+            var $rootScope = _$rootScope_;
+            /* eslint-disable */
+            // *fix* auth0 error : Very temperamental: why is it happening?! (and it didn't once or twice...)
+            // test:auto - everything passes. Single run goes mad.
+            var safeApply = function(fn) {
+                    if(!$rootScope.$root){return;} // this fixing the testing error...
+                    var phase = $rootScope.$root.$$phase;
+                    if(phase === '$apply' || phase === '$digest') {
+                        if(fn && (typeof(fn) === 'function')) {
+                            fn();
+                        }
+                    } else {
+                        $rootScope.$apply(fn);
+                    }
+                };
+            /* eslint-enable */
+            var override = {safeApply:safeApply};
+            angular.extend(_authUtils_, override);
 
-
+        }));
         describe('Exists', function() {
             var InstagramService;
             beforeEach(inject(function(_InstagramService_) {
@@ -26,9 +39,6 @@
                 expect(InstagramService).not.toEqual(null);
             });
         });
-
-
-
 
         describe('api methods', function() {
             var InstagramService;
@@ -64,15 +74,8 @@
                 $httpBackend = _$httpBackend_;
                 $httpParamSerializer = _$httpParamSerializer_;
                 store = _store_;
-                $rootScope = _$rootScope_;      
+                $rootScope = _$rootScope_;
                 store.set('token', token);
-                // $rootScope.$on('$locationChangeStart', angular.noop);
-                
-                // $rootScope.$$listeners['$locationChangeStart'] = [];
-                // var eh = $rootScope.$$listeners['$locationChangeStart'].length;
-                // would shared injector solve this?
-                // And what is making location change? the actual testing?
-                // console.log('eh : ', eh);
 
                 $httpBackend.whenPOST(url)
                     .respond({data:{meta: {code:200},data:[1,2,3,4,5,6]}});
@@ -83,8 +86,8 @@
             });
             it('should return data', function() {
                 // store.set('token', token);
-                var data;                
-                
+                var data;
+
                 InstagramService.getRecent(webtask, {limit:6}).then(function(response) {
                     data = response;
                 });
@@ -92,16 +95,14 @@
                 expect(data).toEqual(jasmine.any(Array));
             });
             it('should return 6 items', function() {
-                // store.set('token', token);
                 var data;
-                
+
                 InstagramService.getRecent(webtask, {limit:6}).then(function(response) {
                     data = response;
                 });
                 $httpBackend.flush();
                 expect(data.length).toEqual(6);
             });
-
         });
 
         describe('handle no token', function() {
@@ -111,7 +112,7 @@
             beforeEach(inject(function(_InstagramService_, _store_, _$rootScope_,  _$httpParamSerializer_) {
                 InstagramService = _InstagramService_;
                 store = _store_;
-                $rootScope = _$rootScope_;      
+                $rootScope = _$rootScope_;
 
             }));
             it('should reject when no id token', function() {

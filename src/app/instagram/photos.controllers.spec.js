@@ -14,9 +14,7 @@
             webtask = 'https://webtask.it.auth0.com/api/run/wt-mikeybyker-gmail_com-0/ext_idp_webtask/call_ext_api';
 
         beforeEach(module('instagram'));
-        beforeEach(inject(function(_$controller_, _$state_, _store_, _InstagramService_, _$httpBackend_, _$rootScope_, _authUtils_) {        
-
-            // auth = _auth_;
+        beforeEach(inject(function(_$controller_, _$state_, _store_, _InstagramService_, _$httpBackend_, _$rootScope_, _authUtils_) {
             $state = _$state_;
             store = _store_;
             InstagramService = _InstagramService_;
@@ -53,13 +51,13 @@
                         success(profile, token);
                     } else {
                         failure('failed login');
-                    }                    
+                    }
                 }
             };
 
-
             /* eslint-disable */
             // *fix* auth0 error : Very temperamental: why is it happening?! (and it didn't once or twice...)
+            // test:auto - everything passes. Single run goes mad.
             var safeApply = function(fn) {
                     if(!$rootScope.$root){return;} // this fixing the testing error...
                     var phase = $rootScope.$root.$$phase;
@@ -72,14 +70,13 @@
                     }
                 };
             /* eslint-enable */
-            // var override = {safeApply:safeApply};
-            // angular.extend(_authUtils_, override);
-
+            var override = {safeApply:safeApply};
+            angular.extend(_authUtils_, override);
 
         }));
 
         describe('authentication user', function(){
-            beforeEach(inject(function(_$controller_) {        
+            beforeEach(inject(function(_$controller_) {
                 // Mock authentication
                 auth.authenticate(store.get('profile'), token);
                 // loadRecent will be called - so mock it
@@ -105,7 +102,7 @@
             beforeEach(inject(function(_$controller_) {
                 spyOn($state, 'go'); // before making the controller
                 var scope = $rootScope.$new();
-                vm = _$controller_('PhotosController', {$scope: scope, auth:auth});                
+                vm = _$controller_('PhotosController', {$scope: scope, auth:auth});
             }));
             it('user not isAuthenticated', function() {
                 expect(auth.isAuthenticated).not.toBeTruthy();
@@ -132,7 +129,7 @@
                 vm = _$controller_('PhotosController', {$scope: scope, auth:auth});
                 Popeye = _Popeye_;
                 deferred.resolve({});
-                spyOn(Popeye, 'openModal').and.returnValue({closed : deferred.promise});            
+                spyOn(Popeye, 'openModal').and.returnValue({closed : deferred.promise});
             }));
             it('openModal defined', function() {
                 // expect(vm.openModal).toBeDefined();

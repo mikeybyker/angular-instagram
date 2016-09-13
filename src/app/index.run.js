@@ -9,11 +9,9 @@
 
         auth.hookEvents();
         $rootScope.$on('$locationChangeStart', function() {
-            console.log('$locationChangeStart');
             var token = store.get('token');
-            // console.log('token : ', token);
             if (token) {
-                                    
+
                 if (!jwtHelper.isTokenExpired(token)) {
                     if (!auth.isAuthenticated) {
 
@@ -29,7 +27,7 @@
                     $state.go('home');
                 }
             }
-        });        
+        });
 
     }
 

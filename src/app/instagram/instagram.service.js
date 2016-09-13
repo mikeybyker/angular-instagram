@@ -67,8 +67,7 @@
                     };
 
                 requestParams = angular.extend(requestParams, params || {});
-                requestData = angular.extend(requestData, data || {});                    
-
+                requestData = angular.extend(requestData, data || {});
                 if(!idToken){
                     return $q.reject({status:500, statusText:'No id token...'});
                 } else if(!proxy_url || !api_url){
